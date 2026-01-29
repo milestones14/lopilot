@@ -51,6 +51,10 @@ You can analyze code or text files by clicking the **(+)** button near the text 
 * **Sandbox Security:** The app uses security-scoped resources to read user-selected files safely.
 * **Networking:** Communicates with the local Ollama instance via `http://localhost:11434/api/generate`.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=milestones14/lopilot&type=date&legend=top-left)](https://www.star-history.com/#milestones14/lopilot&type=date&legend=top-left)
+
 ## License
 
 This project is licensed under the **Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)** license.
