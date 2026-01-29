@@ -1,0 +1,641 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		89097A9A2E8C427E00BB481E /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 89097A992E8C427E00BB481E /* Markdown */; };
+		89D3ADAC2E9169020042A860 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D3ADAB2E9168F70042A860 /* Other.swift */; };
+		CCD803392DAD676600EFF3FD /* LopilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD803382DAD676600EFF3FD /* LopilotApp.swift */; };
+		CCD8033B2DAD676600EFF3FD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD8033A2DAD676600EFF3FD /* ContentView.swift */; };
+		CCD8033D2DAD676B00EFF3FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD8033C2DAD676B00EFF3FD /* Assets.xcassets */; };
+		CCD803402DAD676B00EFF3FD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD8033F2DAD676B00EFF3FD /* Preview Assets.xcassets */; };
+		CCD8034B2DAD676B00EFF3FD /* LopilotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD8034A2DAD676B00EFF3FD /* LopilotTests.swift */; };
+		CCD803552DAD676B00EFF3FD /* LopilotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD803542DAD676B00EFF3FD /* LopilotUITests.swift */; };
+		CCD803572DAD676B00EFF3FD /* LopilotUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD803562DAD676B00EFF3FD /* LopilotUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CCD803472DAD676B00EFF3FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCD8032D2DAD676600EFF3FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD803342DAD676600EFF3FD;
+			remoteInfo = Lopilot;
+		};
+		CCD803512DAD676B00EFF3FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCD8032D2DAD676600EFF3FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD803342DAD676600EFF3FD;
+			remoteInfo = Lopilot;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		89A81CD92F2B841600B2C04F /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
+		89A81CDA2F2B841E00B2C04F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		89D3ADAB2E9168F70042A860 /* Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
+		CCD803352DAD676600EFF3FD /* Lopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCD803382DAD676600EFF3FD /* LopilotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LopilotApp.swift; sourceTree = "<group>"; };
+		CCD8033A2DAD676600EFF3FD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CCD8033C2DAD676B00EFF3FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CCD8033F2DAD676B00EFF3FD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CCD803412DAD676B00EFF3FD /* Lopilot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lopilot.entitlements; sourceTree = "<group>"; };
+		CCD803462DAD676B00EFF3FD /* LopilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LopilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCD8034A2DAD676B00EFF3FD /* LopilotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LopilotTests.swift; sourceTree = "<group>"; };
+		CCD803502DAD676B00EFF3FD /* LopilotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LopilotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCD803542DAD676B00EFF3FD /* LopilotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LopilotUITests.swift; sourceTree = "<group>"; };
+		CCD803562DAD676B00EFF3FD /* LopilotUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LopilotUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCD803322DAD676600EFF3FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89097A9A2E8C427E00BB481E /* Markdown in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCD803432DAD676B00EFF3FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCD8034D2DAD676B00EFF3FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CCD8032C2DAD676600EFF3FD = {
+			isa = PBXGroup;
+			children = (
+				89A81CD92F2B841600B2C04F /* LICENCE */,
+				89A81CDA2F2B841E00B2C04F /* README.md */,
+				CCD803372DAD676600EFF3FD /* Lopilot */,
+				CCD803492DAD676B00EFF3FD /* LopilotTests */,
+				CCD803532DAD676B00EFF3FD /* LopilotUITests */,
+				CCD803362DAD676600EFF3FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCD803362DAD676600EFF3FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCD803352DAD676600EFF3FD /* Lopilot.app */,
+				CCD803462DAD676B00EFF3FD /* LopilotTests.xctest */,
+				CCD803502DAD676B00EFF3FD /* LopilotUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCD803372DAD676600EFF3FD /* Lopilot */ = {
+			isa = PBXGroup;
+			children = (
+				89D3ADAB2E9168F70042A860 /* Other.swift */,
+				CCD803382DAD676600EFF3FD /* LopilotApp.swift */,
+				CCD8033A2DAD676600EFF3FD /* ContentView.swift */,
+				CCD8033C2DAD676B00EFF3FD /* Assets.xcassets */,
+				CCD803412DAD676B00EFF3FD /* Lopilot.entitlements */,
+				CCD8033E2DAD676B00EFF3FD /* Preview Content */,
+			);
+			path = Lopilot;
+			sourceTree = "<group>";
+		};
+		CCD8033E2DAD676B00EFF3FD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CCD8033F2DAD676B00EFF3FD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CCD803492DAD676B00EFF3FD /* LopilotTests */ = {
+			isa = PBXGroup;
+			children = (
+				CCD8034A2DAD676B00EFF3FD /* LopilotTests.swift */,
+			);
+			path = LopilotTests;
+			sourceTree = "<group>";
+		};
+		CCD803532DAD676B00EFF3FD /* LopilotUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CCD803542DAD676B00EFF3FD /* LopilotUITests.swift */,
+				CCD803562DAD676B00EFF3FD /* LopilotUITestsLaunchTests.swift */,
+			);
+			path = LopilotUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CCD803342DAD676600EFF3FD /* Lopilot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCD8035A2DAD676B00EFF3FD /* Build configuration list for PBXNativeTarget "Lopilot" */;
+			buildPhases = (
+				CCD803312DAD676600EFF3FD /* Sources */,
+				CCD803322DAD676600EFF3FD /* Frameworks */,
+				CCD803332DAD676600EFF3FD /* Resources */,
+				897BA7E22F2B780F00D7B8BD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lopilot;
+			productName = Lopilot;
+			productReference = CCD803352DAD676600EFF3FD /* Lopilot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CCD803452DAD676B00EFF3FD /* LopilotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCD8035D2DAD676B00EFF3FD /* Build configuration list for PBXNativeTarget "LopilotTests" */;
+			buildPhases = (
+				CCD803422DAD676B00EFF3FD /* Sources */,
+				CCD803432DAD676B00EFF3FD /* Frameworks */,
+				CCD803442DAD676B00EFF3FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CCD803482DAD676B00EFF3FD /* PBXTargetDependency */,
+			);
+			name = LopilotTests;
+			productName = LopilotTests;
+			productReference = CCD803462DAD676B00EFF3FD /* LopilotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CCD8034F2DAD676B00EFF3FD /* LopilotUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCD803602DAD676B00EFF3FD /* Build configuration list for PBXNativeTarget "LopilotUITests" */;
+			buildPhases = (
+				CCD8034C2DAD676B00EFF3FD /* Sources */,
+				CCD8034D2DAD676B00EFF3FD /* Frameworks */,
+				CCD8034E2DAD676B00EFF3FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CCD803522DAD676B00EFF3FD /* PBXTargetDependency */,
+			);
+			name = LopilotUITests;
+			productName = LopilotUITests;
+			productReference = CCD803502DAD676B00EFF3FD /* LopilotUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCD8032D2DAD676600EFF3FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					CCD803342DAD676600EFF3FD = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					CCD803452DAD676B00EFF3FD = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = CCD803342DAD676600EFF3FD;
+					};
+					CCD8034F2DAD676B00EFF3FD = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = CCD803342DAD676600EFF3FD;
+					};
+				};
+			};
+			buildConfigurationList = CCD803302DAD676600EFF3FD /* Build configuration list for PBXProject "Lopilot" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CCD8032C2DAD676600EFF3FD;
+			packageReferences = (
+				89097A982E8C427E00BB481E /* XCRemoteSwiftPackageReference "swift-markdown" */,
+			);
+			productRefGroup = CCD803362DAD676600EFF3FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCD803342DAD676600EFF3FD /* Lopilot */,
+				CCD803452DAD676B00EFF3FD /* LopilotTests */,
+				CCD8034F2DAD676B00EFF3FD /* LopilotUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CCD803332DAD676600EFF3FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD803402DAD676B00EFF3FD /* Preview Assets.xcassets in Resources */,
+				CCD8033D2DAD676B00EFF3FD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCD803442DAD676B00EFF3FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCD8034E2DAD676B00EFF3FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		897BA7E22F2B780F00D7B8BD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Set the path to the project file\ncd \"${PROJECT_DIR}\"\n\n# Get the current build number from Build Settings\nbuildNumber=$(avgtool what-version -terse)\n\n# Increment the number\nbuildNumber=$((buildNumber + 1))\n\n# Update the build number in the project\navgtool new-version -terse $buildNumber\n\n# Optional: Ensure the change is reflected in the environment\necho \"Updated Build Number to $buildNumber\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCD803312DAD676600EFF3FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89D3ADAC2E9169020042A860 /* Other.swift in Sources */,
+				CCD8033B2DAD676600EFF3FD /* ContentView.swift in Sources */,
+				CCD803392DAD676600EFF3FD /* LopilotApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCD803422DAD676B00EFF3FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD8034B2DAD676B00EFF3FD /* LopilotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCD8034C2DAD676B00EFF3FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD803572DAD676B00EFF3FD /* LopilotUITestsLaunchTests.swift in Sources */,
+				CCD803552DAD676B00EFF3FD /* LopilotUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CCD803482DAD676B00EFF3FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCD803342DAD676600EFF3FD /* Lopilot */;
+			targetProxy = CCD803472DAD676B00EFF3FD /* PBXContainerItemProxy */;
+		};
+		CCD803522DAD676B00EFF3FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCD803342DAD676600EFF3FD /* Lopilot */;
+			targetProxy = CCD803512DAD676B00EFF3FD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CCD803582DAD676B00EFF3FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CCD803592DAD676B00EFF3FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		CCD8035B2DAD676B00EFF3FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Lopilot/Lopilot.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Lopilot/Preview Content\"";
+				DEVELOPMENT_TEAM = 2F85M556P8;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.m.Lopilot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		CCD8035C2DAD676B00EFF3FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Lopilot/Lopilot.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Lopilot/Preview Content\"";
+				DEVELOPMENT_TEAM = 2F85M556P8;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.m.Lopilot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		CCD8035E2DAD676B00EFF3FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.m.LopilotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lopilot.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Lopilot";
+			};
+			name = Debug;
+		};
+		CCD8035F2DAD676B00EFF3FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.m.LopilotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lopilot.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Lopilot";
+			};
+			name = Release;
+		};
+		CCD803612DAD676B00EFF3FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.m.LopilotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Lopilot;
+			};
+			name = Debug;
+		};
+		CCD803622DAD676B00EFF3FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.m.LopilotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Lopilot;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCD803302DAD676600EFF3FD /* Build configuration list for PBXProject "Lopilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCD803582DAD676B00EFF3FD /* Debug */,
+				CCD803592DAD676B00EFF3FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCD8035A2DAD676B00EFF3FD /* Build configuration list for PBXNativeTarget "Lopilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCD8035B2DAD676B00EFF3FD /* Debug */,
+				CCD8035C2DAD676B00EFF3FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCD8035D2DAD676B00EFF3FD /* Build configuration list for PBXNativeTarget "LopilotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCD8035E2DAD676B00EFF3FD /* Debug */,
+				CCD8035F2DAD676B00EFF3FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCD803602DAD676B00EFF3FD /* Build configuration list for PBXNativeTarget "LopilotUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCD803612DAD676B00EFF3FD /* Debug */,
+				CCD803622DAD676B00EFF3FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		89097A982E8C427E00BB481E /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftlang/swift-markdown.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		89097A992E8C427E00BB481E /* Markdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89097A982E8C427E00BB481E /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			productName = Markdown;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = CCD8032D2DAD676600EFF3FD /* Project object */;
+}
