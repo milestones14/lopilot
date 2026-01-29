@@ -37,28 +37,9 @@ struct ContentView: View {
         "codellama": ["7b", "13b", "34b", "70b"]
     ]
     
+    // --- General, Creative & Lifestyle (30 items) ---
     private var promptSuggestions: [promptSuggestion] {
         [
-            // --- Coding & Tech (17 items) ---
-            promptSuggestion(content: "Write a Hello World application in React"),
-            promptSuggestion(content: "What are the primary differences between Swift and Kotlin?"),
-            promptSuggestion(content: "Write a Python script to scrape news headlines"),
-            promptSuggestion(content: "What are the best practices for accessibility in web design?"),
-            promptSuggestion(content: "Explain the difference between SQL and NoSQL databases"),
-            promptSuggestion(content: "Write a CSS snippet for a glassmorphism card effect"),
-            promptSuggestion(content: "How do I center a div using Flexbox?"),
-            promptSuggestion(content: "Write a bash script to automate folder backups"),
-            promptSuggestion(content: "Explain the concept of 'technical debt' to a non-coder"),
-            promptSuggestion(content: "What are the most common design patterns in Swift?"),
-            promptSuggestion(content: "How do I fix a 'merge conflict' in Git?"),
-            promptSuggestion(content: "Explain the difference between deep learning and machine learning"),
-            promptSuggestion(content: "How do I optimize a website for Core Web Vitals?"),
-            promptSuggestion(content: "How do I implement 'Dark Mode' in a SwiftUI app?"),
-            promptSuggestion(content: "What are the best practices for securing a REST API?"),
-            promptSuggestion(content: "Explain how an API works using a restaurant analogy"),
-            promptSuggestion(content: "What is the difference between a compiler and an interpreter?"),
-
-            // --- General, Creative & Lifestyle (30 items) ---
             promptSuggestion(content: "Suggest 5 healthy breakfast ideas with eggs"),
             promptSuggestion(content: "How do I make a sourdough starter from scratch?"),
             promptSuggestion(content: "Summarize the plot of the Great Gatsby in three sentences"),
@@ -93,6 +74,29 @@ struct ContentView: View {
             promptSuggestion(content: "Create a step-by-step checklist for launching a startup"),
             promptSuggestion(content: "Explain how the immune system remembers viruses"),
             promptSuggestion(content: "What are the best plants for a low-light apartment?")
+        ]
+    }
+    
+    // --- Coding & Tech (17 items) ---
+    private var promptSuggestionsCode: [promptSuggestion] {
+        [
+            promptSuggestion(content: "Write a Hello World application in React"),
+            promptSuggestion(content: "What are the primary differences between Swift and Kotlin?"),
+            promptSuggestion(content: "Write a Python script to scrape news headlines"),
+            promptSuggestion(content: "What are the best practices for accessibility in web design?"),
+            promptSuggestion(content: "Explain the difference between SQL and NoSQL databases"),
+            promptSuggestion(content: "Write a CSS snippet for a glassmorphism card effect"),
+            promptSuggestion(content: "How do I center a div using Flexbox?"),
+            promptSuggestion(content: "Write a bash script to automate folder backups"),
+            promptSuggestion(content: "Explain the concept of 'technical debt' to a non-coder"),
+            promptSuggestion(content: "What are the most common design patterns in Swift?"),
+            promptSuggestion(content: "How do I fix a 'merge conflict' in Git?"),
+            promptSuggestion(content: "Explain the difference between deep learning and machine learning"),
+            promptSuggestion(content: "How do I optimize a website for Core Web Vitals?"),
+            promptSuggestion(content: "How do I implement 'Dark Mode' in a SwiftUI app?"),
+            promptSuggestion(content: "What are the best practices for securing a REST API?"),
+            promptSuggestion(content: "Explain how an API works using a restaurant analogy"),
+            promptSuggestion(content: "What is the difference between a compiler and an interpreter?"),
         ]
     }
     
@@ -170,7 +174,7 @@ struct ContentView: View {
         NavigationView {
             if sidebarVisibility.isSidebarVisible {
                 List(selection: $selectedItem) {
-                    NavigationLink(destination: chatView.navigationTitle(currentSession.wrappedValue.name),
+                    NavigationLink(destination: chatView.navigationTitle(currentSession.wrappedValue.name).onAppear(perform: showSuggestions),
                                    tag: "chat", selection: $selectedItem) {
                         Label("Ask", systemImage: "bubble")
                     }
@@ -404,18 +408,7 @@ struct ContentView: View {
         .padding()
         .onAppear {
             if visibleSuggestions.isEmpty {
-                visibleSuggestions = Array(
-                    promptSuggestions
-                        .shuffled()
-                        .prefix(3)
-                        .sortedByVisualWidth(\.content, order: .smallToLarge)
-                )
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    withAnimation(.interpolatingSpring(stiffness: 120, damping: 14)) {
-                        isAnimatingSuggestions = true
-                    }
-                }
+                showSuggestions()
             }
             
             startServerAndPullModel()
@@ -429,6 +422,44 @@ struct ContentView: View {
         }
         .onChange(of: currentSession.wrappedValue) { newSession in
             chatHistory.saveSession(newSession)
+        }
+    }
+    
+    private func showSuggestions() {
+        isAnimatingSuggestions = false
+
+        let codingSuggestions = Array(
+            promptSuggestionsCode
+                .shuffled()
+                .prefix(3)
+                .sortedByVisualWidth(\.content, order: .smallToLarge)
+        )
+
+        if selectedModel.lowercased().contains("code") {
+            // Specific to coding models (e.g. Meta **Code** Llama)
+            visibleSuggestions = codingSuggestions
+        } else {
+            // Otherwise, show generic suggestions
+            let evenShowCode = Int.random(in: 1...100) <= 70
+            
+            let codingSelection = promptSuggestionsCode.shuffled().prefix(1)
+            let genericSelection = promptSuggestions.shuffled().prefix(evenShowCode ? 2 : 3)
+            
+            if evenShowCode {
+                visibleSuggestions = (genericSelection + codingSelection)
+                    .shuffled()
+                    .sortedByVisualWidth(\.content, order: .smallToLarge)
+            } else {
+                visibleSuggestions = (genericSelection)
+                    .shuffled()
+                    .sortedByVisualWidth(\.content, order: .smallToLarge)
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            withAnimation(.interpolatingSpring(stiffness: 120, damping: 14)) {
+                isAnimatingSuggestions = true
+            }
         }
     }
 
@@ -460,6 +491,7 @@ struct ContentView: View {
         .onChange(of: selectedModel) { newValue in
             if !newValue.isEmpty {
                 UserPreferences().saveLastSelectedModel(newValue)
+                showSuggestions()
             }
         }
     }
