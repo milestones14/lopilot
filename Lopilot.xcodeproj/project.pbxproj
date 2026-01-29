@@ -8,7 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		89097A9A2E8C427E00BB481E /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 89097A992E8C427E00BB481E /* Markdown */; };
-		89D3ADAC2E9169020042A860 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D3ADAB2E9168F70042A860 /* Other.swift */; };
+		89A81CDC2F2BB40900B2C04F /* CodeBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CDB2F2BB40900B2C04F /* CodeBlockView.swift */; };
+		89A81CDE2F2BB43800B2C04F /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CDD2F2BB43300B2C04F /* Markdown.swift */; };
+		89A81CE02F2BB45A00B2C04F /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CDF2F2BB45700B2C04F /* Misc.swift */; };
+		89A81CE22F2BB4AE00B2C04F /* ChatUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE12F2BB4A800B2C04F /* ChatUtilities.swift */; };
+		89A81CE42F2BB4EA00B2C04F /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE32F2BB4EA00B2C04F /* UserPreferences.swift */; };
+		89A81CE62F2BB72200B2C04F /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE52F2BB71200B2C04F /* GlobalVariables.swift */; };
+		89A81CE82F2BB99000B2C04F /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE72F2BB98C00B2C04F /* GlobalFunctions.swift */; };
 		CCD803392DAD676600EFF3FD /* LopilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD803382DAD676600EFF3FD /* LopilotApp.swift */; };
 		CCD8033B2DAD676600EFF3FD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD8033A2DAD676600EFF3FD /* ContentView.swift */; };
 		CCD8033D2DAD676B00EFF3FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD8033C2DAD676B00EFF3FD /* Assets.xcassets */; };
@@ -38,7 +44,13 @@
 /* Begin PBXFileReference section */
 		89A81CD92F2B841600B2C04F /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		89A81CDA2F2B841E00B2C04F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		89D3ADAB2E9168F70042A860 /* Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
+		89A81CDB2F2BB40900B2C04F /* CodeBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockView.swift; sourceTree = "<group>"; };
+		89A81CDD2F2BB43300B2C04F /* Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
+		89A81CDF2F2BB45700B2C04F /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		89A81CE12F2BB4A800B2C04F /* ChatUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUtilities.swift; sourceTree = "<group>"; };
+		89A81CE32F2BB4EA00B2C04F /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		89A81CE52F2BB71200B2C04F /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		89A81CE72F2BB98C00B2C04F /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		CCD803352DAD676600EFF3FD /* Lopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD803382DAD676600EFF3FD /* LopilotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LopilotApp.swift; sourceTree = "<group>"; };
 		CCD8033A2DAD676600EFF3FD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,6 +90,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		89A81CE92F2BBB4900B2C04F /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				89A81CE72F2BB98C00B2C04F /* GlobalFunctions.swift */,
+				89A81CE52F2BB71200B2C04F /* GlobalVariables.swift */,
+			);
+			path = Globals;
+			sourceTree = "<group>";
+		};
+		89A81CEA2F2BBB6200B2C04F /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				89A81CE32F2BB4EA00B2C04F /* UserPreferences.swift */,
+				89A81CDF2F2BB45700B2C04F /* Misc.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		89A81CEB2F2BBB7300B2C04F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89A81CE12F2BB4A800B2C04F /* ChatUtilities.swift */,
+				89A81CDD2F2BB43300B2C04F /* Markdown.swift */,
+				89A81CDB2F2BB40900B2C04F /* CodeBlockView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CCD8032C2DAD676600EFF3FD = {
 			isa = PBXGroup;
 			children = (
@@ -103,7 +143,9 @@
 		CCD803372DAD676600EFF3FD /* Lopilot */ = {
 			isa = PBXGroup;
 			children = (
-				89D3ADAB2E9168F70042A860 /* Other.swift */,
+				89A81CE92F2BBB4900B2C04F /* Globals */,
+				89A81CEA2F2BBB6200B2C04F /* Misc */,
+				89A81CEB2F2BBB7300B2C04F /* Views */,
 				CCD803382DAD676600EFF3FD /* LopilotApp.swift */,
 				CCD8033A2DAD676600EFF3FD /* ContentView.swift */,
 				CCD8033C2DAD676B00EFF3FD /* Assets.xcassets */,
@@ -292,9 +334,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89D3ADAC2E9169020042A860 /* Other.swift in Sources */,
+				89A81CE22F2BB4AE00B2C04F /* ChatUtilities.swift in Sources */,
+				89A81CE42F2BB4EA00B2C04F /* UserPreferences.swift in Sources */,
+				89A81CE62F2BB72200B2C04F /* GlobalVariables.swift in Sources */,
+				89A81CDE2F2BB43800B2C04F /* Markdown.swift in Sources */,
 				CCD8033B2DAD676600EFF3FD /* ContentView.swift in Sources */,
+				89A81CE02F2BB45A00B2C04F /* Misc.swift in Sources */,
 				CCD803392DAD676600EFF3FD /* LopilotApp.swift in Sources */,
+				89A81CDC2F2BB40900B2C04F /* CodeBlockView.swift in Sources */,
+				89A81CE82F2BB99000B2C04F /* GlobalFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,134 +12,23 @@ struct ContentView: View {
     @State private var isAnimatingSuggestions: Bool = false
     @State private var attachedFiles: [AttachedFile] = []
     @State private var isImporting: Bool = false
-
-    let models: [String: String] = [
-        "Google Gemma3": "gemma3",
-        "Meta Llama 3.1": "llama3.1",
-        "Mistral": "mistral",
-        "DeepSeek R1": "deepseek-r1",
-        "Meta Code Llama": "codellama"
-    ]
-    
-    let modelsUser: [String: String] = [
-        "gemma3": "Google Gemma3",
-        "llama3.1": "Meta Llama 3.1",
-        "mistral": "Mistral",
-        "deepseek-r1": "DeepSeek R1",
-        "codellama": "Meta Code Llama"
-    ]
-
-    let modelsToParams: [String: [String]] = [
-        "gemma3": ["1b", "4b", "12b", "27b"],
-        "llama3.1": ["8b", "70b", "405b"],
-        "mistral": ["7b"],
-        "deepseek-r1": ["1.5b", "7b", "8b", "14b", "32b", "70b", "671b"],
-        "codellama": ["7b", "13b", "34b", "70b"]
-    ]
-    
-    // --- General, Creative & Lifestyle (30 items) ---
-    private var promptSuggestions: [promptSuggestion] {
-        [
-            promptSuggestion(content: "Suggest 5 healthy breakfast ideas with eggs"),
-            promptSuggestion(content: "How do I make a sourdough starter from scratch?"),
-            promptSuggestion(content: "Summarize the plot of the Great Gatsby in three sentences"),
-            promptSuggestion(content: "Explain the theory of relativity using a sports analogy"),
-            promptSuggestion(content: "Give me a 15-minute bodyweight workout routine"),
-            promptSuggestion(content: "How does a blockchain actually work?"),
-            promptSuggestion(content: "Write a formal cover letter for a Software Engineer role"),
-            promptSuggestion(content: "Translate 'Where is the nearest train station?' into Japanese"),
-            promptSuggestion(content: "Create a list of 10 travel essentials for a hiking trip"),
-            promptSuggestion(content: "Write a funny script for a 30-second coffee commercial"),
-            promptSuggestion(content: "What are the pros and cons of remote work?"),
-            promptSuggestion(content: "Explain how photosynthesis works to a middle schooler"),
-            promptSuggestion(content: "How can I improve my focus while working from home?"),
-            promptSuggestion(content: "What is the best way to learn a new language quickly?"),
-            promptSuggestion(content: "Describe the architectural style of the Renaissance"),
-            promptSuggestion(content: "Suggest 5 classic sci-fi books for a beginner"),
-            promptSuggestion(content: "What are the main causes of the French Revolution?"),
-            promptSuggestion(content: "How do electric vehicle batteries differ from phone batteries?"),
-            promptSuggestion(content: "What are some effective networking tips for introverts?"),
-            promptSuggestion(content: "Write a short ghost story set in a library"),
-            promptSuggestion(content: "How does the stock market work for beginners?"),
-            promptSuggestion(content: "Explain the difference between a latte and a cappuccino"),
-            promptSuggestion(content: "Provide a recipe for a classic Margherita pizza"),
-            promptSuggestion(content: "Write a polite rejection letter for a job applicant"),
-            promptSuggestion(content: "What are the environmental benefits of vertical farming?"),
-            promptSuggestion(content: "Draft a beginner-friendly 10-step guide to meditation"),
-            promptSuggestion(content: "Write a thank-you note to a mentor who helped with a career move"),
-            promptSuggestion(content: "What are 5 essential tips for first-time home buyers?"),
-            promptSuggestion(content: "How do noise-canceling headphones work physically?"),
-            promptSuggestion(content: "Explain the concept of 'opportunity cost' with an everyday example"),
-            promptSuggestion(content: "What is the history behind the Olympic Games?"),
-            promptSuggestion(content: "Create a step-by-step checklist for launching a startup"),
-            promptSuggestion(content: "Explain how the immune system remembers viruses"),
-            promptSuggestion(content: "What are the best plants for a low-light apartment?")
-        ]
-    }
-    
-    // --- Coding & Tech (17 items) ---
-    private var promptSuggestionsCode: [promptSuggestion] {
-        [
-            promptSuggestion(content: "Write a Hello World application in React"),
-            promptSuggestion(content: "What are the primary differences between Swift and Kotlin?"),
-            promptSuggestion(content: "Write a Python script to scrape news headlines"),
-            promptSuggestion(content: "What are the best practices for accessibility in web design?"),
-            promptSuggestion(content: "Explain the difference between SQL and NoSQL databases"),
-            promptSuggestion(content: "Write a CSS snippet for a glassmorphism card effect"),
-            promptSuggestion(content: "How do I center a div using Flexbox?"),
-            promptSuggestion(content: "Write a bash script to automate folder backups"),
-            promptSuggestion(content: "Explain the concept of 'technical debt' to a non-coder"),
-            promptSuggestion(content: "What are the most common design patterns in Swift?"),
-            promptSuggestion(content: "How do I fix a 'merge conflict' in Git?"),
-            promptSuggestion(content: "Explain the difference between deep learning and machine learning"),
-            promptSuggestion(content: "How do I optimize a website for Core Web Vitals?"),
-            promptSuggestion(content: "How do I implement 'Dark Mode' in a SwiftUI app?"),
-            promptSuggestion(content: "What are the best practices for securing a REST API?"),
-            promptSuggestion(content: "Explain how an API works using a restaurant analogy"),
-            promptSuggestion(content: "What is the difference between a compiler and an interpreter?"),
-        ]
-    }
-    
-    @State private var visibleSuggestions: [promptSuggestion] = []
-
+    @State private var modelsToSizes = GlobalVariables.modelsToSizes
+    @State private var visibleSuggestions: [PromptSuggestion] = []
     @State private var selectedModel: String = ""
     @State var selectedItem: String? = "chat"
     @StateObject private var sidebarVisibility = SidebarVisibility()
     @State private var isSigningOut: Bool = false
     @State private var popUpMenuShows: Bool = false
-
     @State private var installedModels: Set<String> = []
     @State private var isInstalling: [String: Bool] = [:]
     @State private var isUninstalling: [String: Bool] = [:]
     @State private var modelProgress: [String: ModelPullProgress] = [:]
 
-    struct ModelPullProgress {
-        var stageMessages: [String] = []
-        var digests: [String: Float] = [:]
-        var isFinished: Bool = false
-    }
-
-    @State private var modelsToSizes: [String: String] = [
-        "deepseek-r1:1.5b": "1.1GB",
-        "deepseek-r1:7b": "4.7GB",
-        "deepseek-r1:8b": "5.2GB",
-        "deepseek-r1:14b": "9GB",
-        "deepseek-r1:32b": "20GB",
-        "deepseek-r1:70b": "43GB",
-        "deepseek-r1:671b": "404GB",
-        "gemma3:1b": "815MB",
-        "gemma3:4b": "3.3GB",
-        "gemma3:12b": "8.1GB",
-        "gemma3:27b": "17GB",
-        "codellama:7b": "3.8GB",
-        "codellama:13b": "7.4GB",
-        "codellama:34b": "19GB",
-        "codellama:70b": "39GB",
-        "llama3.1:8b": "4.9GB",
-        "llama3.1:70b": "43GB",
-        "llama3.1:405b": "243GB",
-        "mistral:7b": "4.4GB"
-    ]
+    let models = GlobalVariables.models
+    let modelsUser = GlobalVariables.modelsUser
+    let modelsToParams = GlobalVariables.modelsToParams
+    private var promptSuggestions = GlobalVariables.promptSuggestions
+    private var promptSuggestionsCode = GlobalVariables.promptSuggestionsCode
 
     // Computed property: a binding to the selected ChatSession in chatHistory
     var currentSession: Binding<ChatSession> {
@@ -365,13 +254,6 @@ struct ContentView: View {
                             if session.id != currentSessionID {
                                 chatHistory.deleteSession(session.id)
                             } else {
-//                                let alert = NSAlert()
-//                                alert.messageText = "Cannot Delete Current Chat"
-//                                alert.informativeText = "Please switch to another chat or create a new one before deleting this chat."
-//                                alert.alertStyle = .warning
-//                                alert.addButton(withTitle: "OK")
-//                                alert.runModal()
-
                                 currentSessionID = nil
                                 chatHistory.deleteSession(session.id)
                                 createNewChat()
@@ -482,7 +364,7 @@ struct ContentView: View {
                 Text("Loading...").tag("")
             } else {
                 ForEach(installedInternalNames, id: \.self) { internalName in
-                    Text(displayName(for: internalName)).tag(internalName)
+                    Text(GlobalFunctions.displayName(for: internalName)).tag(internalName)
                 }
             }
         }
@@ -517,7 +399,7 @@ struct ContentView: View {
                         ChatBubble(message: Message(
                             role: .assistant,
                             text: streamingResponse,
-                            modelUserFriendly: displayName(for: selectedModel),
+                            modelUserFriendly: GlobalFunctions.displayName(for: selectedModel),
                             isLoading: streamingResponse.isEmpty // Set to true only if text is empty
                         ))
                         .id("streaming")
@@ -696,19 +578,6 @@ struct ContentView: View {
         }
     }
 
-    // Helper to clean up the Picker logic
-    private func displayName(for internalName: String) -> String {
-        let components = internalName.split(separator: ":").map(String.init)
-        let baseName = components.first ?? internalName
-        let variant = components.last ?? ""
-        
-        // Look up the friendly name in modelsUser; fallback to the baseName if not found
-        let friendlyBase = modelsUser[baseName] ?? baseName
-        
-        // Returns "Google Gemma3 (1b)" instead of "gemma3:1b"
-        return variant.isEmpty ? friendlyBase : "\(friendlyBase) (\(variant))"
-    }
-
     // MARK: - Helper / Commands
     private func selectFiles() {
         isImporting = true
@@ -768,7 +637,7 @@ struct ContentView: View {
 
     private func checkAvailability() -> Bool {
         var isAvailable = true
-        if !isOllamaAvailable() {
+        if !GlobalFunctions.isOllamaAvailable() {
             DispatchQueue.main.async {
                 let alert = NSAlert()
                 alert.messageText = "Ollama not installed"
@@ -946,26 +815,6 @@ struct ContentView: View {
             }
         }
     }
-
-    func isOllamaAvailable() -> Bool {
-        let listCommand = "/usr/local/bin/ollama list"
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/bash")
-        process.arguments = ["-c", listCommand]
-        let pipe = Pipe()
-        process.standardOutput = pipe
-        process.standardError = pipe
-        do {
-            try process.run()
-            process.waitUntilExit()
-            let outputData = pipe.fileHandleForReading.readDataToEndOfFile()
-            let output = String(data: outputData, encoding: .utf8) ?? ""
-            return !output.lowercased().contains("command not found")
-        } catch {
-            print("Error checking Ollama: \(error)")
-            return false
-        }
-    }
     
     func getResponse(prompt: String) async -> String? {
         if !checkAvailability() {
@@ -1106,8 +955,8 @@ struct ContentView: View {
             isLoading = true
 
             Task.detached(priority: .userInitiated) {
-                guard let payload = await self.makePayload(with: fullContext, model: model) else { return }
-                // ... (rest of the streaming logic remains the same)
+                guard let payload = await GlobalFunctions.makePayload(with: fullContext, model: model) else { return }
+                
                 var request = URLRequest(url: URL(string: "http://localhost:11434/api/generate")!)
                 request.httpMethod = "POST"
                 request.httpBody = payload.data(using: .utf8)
@@ -1120,7 +969,7 @@ struct ContentView: View {
                     var lastUpdate = Date()
 
                     for try await line in bytes.lines {
-                        let part = await self.parsePlainText(line)
+                        let part = await GlobalFunctions.parsePlainText(line)
                         accumulated += part
                         
                         if Date().timeIntervalSince(lastUpdate) > 0.05 {
@@ -1142,7 +991,7 @@ struct ContentView: View {
         
         if !finalResult.isEmpty {
             // Resolve the friendly name before creating the message
-            let friendlyName = displayName(for: model)
+            let friendlyName = GlobalFunctions.displayName(for: model)
             let assistantMsg = Message(role: .assistant, text: finalResult, modelUserFriendly: friendlyName, isLoading: false)
             currentSession.wrappedValue.messages.append(assistantMsg)
         }
@@ -1164,234 +1013,17 @@ struct ContentView: View {
         currentProcess = nil
         if !streamingResponse.isEmpty {
             // Use the friendly name here as well
-            let friendlyName = displayName(for: selectedModel)
+            let friendlyName = GlobalFunctions.displayName(for: selectedModel)
             let assistantMsg = Message(role: .assistant, text: streamingResponse, modelUserFriendly: friendlyName, isLoading: false)
             currentSession.wrappedValue.messages.append(assistantMsg)
             chatHistory.saveSession(currentSession.wrappedValue)
             streamingResponse = ""
         }
     }
-
-    func makePayload(with prompt: String, model: String) -> String? {
-        let payload: [String: Any] = [
-            "model": model,
-            "prompt": prompt,
-            "stream": true
-        ]
-        // JSONSerialization handles all escaping (quotes, newlines, etc.) correctly
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: payload, options: []),
-              let jsonStr = String(data: jsonData, encoding: .utf8) else {
-            return nil
-        }
-        return jsonStr
-    }
-
-    func parsePlainText(_ jsonStr: String) -> String {
-        let lines = jsonStr.components(separatedBy: .newlines)
-        var result = ""
-        for line in lines {
-            guard let data = line.data(using: .utf8) else { continue }
-            if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-               let aiResponse = json["response"] as? String {
-                result += aiResponse
-            }
-        }
-        return result
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-struct ChatBubble: View {
-    let message: Message
-    var body: some View {
-        if message.role != .system {
-            VStack(alignment: message.role == .user ? .trailing : .leading) { // Align based on role
-                if message.role == .assistant {
-                    HStack {
-                        Text((message.role == .assistant ? message.modelUserFriendly.components(separatedBy: " (").first?.trimmingCharacters(in: .whitespaces) : "") ?? message.modelUserFriendly)
-                            .padding(5)
-                            .font(.title2)
-                        Spacer()
-                    }
-                }
-                
-                HStack {
-                    if message.role == .user { Spacer() }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        if message.role == .assistant && message.isLoading && message.text.isEmpty {
-                            ProgressView()
-                                .scaleEffect(0.6)
-                                .padding(10)
-                        } else {
-                            MarkdownText(text: message.text)
-                                .padding(10)
-                        }
-
-                        // Render Attachments specifically for this message
-                        if let attachments = message.attachments, !attachments.isEmpty {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Attachments:")
-                                    .font(.caption2.bold())
-                                    .foregroundColor(.secondary)
-                                
-                                ForEach(attachments) { file in
-                                    HStack(spacing: 4) {
-                                        Image(systemName: "doc.text")
-                                            .font(.caption2)
-                                        Text(file.name)
-                                            .font(.caption2)
-                                            .lineLimit(1)
-                                    }
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 2)
-                                    .background(Color.secondary.opacity(0.1))
-                                    .cornerRadius(4)
-                                }
-                            }
-                            .padding([.horizontal, .bottom], 8)
-                        }
-                    }
-                    .background(message.role == .user ? Color.blue.opacity(0.1) : Color.gray.opacity(0.1))
-                    .cornerRadius(10)
-                    
-                    if message.role == .assistant { Spacer() }
-                }
-                
-                if message.role == .assistant {
-                    HStack {
-                        Text("_AI Responses may contain mistakes. Check important info._")
-                            .padding(5)
-                            .font(.system(size: 10))
-                        Spacer()
-                    }
-                }
-            }
-            .padding()
-        }
-    }
-}
-
-struct MarkdownText: View {
-    let text: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            let segments = parseMarkdownSegments(text: text)
-            ForEach(0..<segments.count, id: \.self) { index in
-                let segment = segments[index]
-                if segment.isCode {
-                    CodeBlockView(code: segment.content, language: segment.language)
-                } else {
-                    // Call the helper function here
-                    renderFormattedText(segment.content)
-                }
-            }
-        }
-    }
-
-    // Helper function to handle the trimming logic
-    @ViewBuilder
-    private func renderFormattedText(_ content: String) -> some View {
-        if let attr = try? AttributedString(
-            markdown: content,
-            options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
-        ) {
-            let trimmed = trimAttributedString(attr)
-            Text(trimmed)
-        } else {
-            Text(content.trimmingCharacters(in: .newlines))
-        }
-    }
-
-    private func trimAttributedString(_ attr: AttributedString) -> AttributedString {
-        var trimmedAttr = attr
-        while trimmedAttr.characters.first?.isNewline == true {
-            trimmedAttr.characters.removeFirst()
-        }
-        while trimmedAttr.characters.last?.isNewline == true {
-            trimmedAttr.characters.removeLast()
-        }
-        return trimmedAttr
-    }
-
-    // A simple parser to separate code blocks from prose
-    private func parseMarkdownSegments(text: String) -> [MarkdownSegment] {
-        var segments: [MarkdownSegment] = []
-        let parts = text.components(separatedBy: "```")
-        
-        for i in 0..<parts.count {
-            let part = parts[i]
-            if i % 2 == 1 { // Inside triple backticks
-                let lines = part.split(separator: "\n", maxSplits: 1, omittingEmptySubsequences: false)
-                let lang = String(lines.first ?? "").trimmingCharacters(in: .whitespaces)
-                let code = lines.count > 1 ? String(lines[1]) : ""
-                segments.append(MarkdownSegment(content: code, isCode: true, language: lang))
-            } else { // Normal text
-                if !part.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    // Extra formatting
-                    let fullPart = part
-                        .replacingOccurrences(of: "*   ", with: "•   ")
-                    
-                    segments.append(MarkdownSegment(content: fullPart, isCode: false))
-                }
-            }
-        }
-        return segments
-    }
-}
-
-struct MarkdownSegment {
-    let content: String
-    let isCode: Bool
-    var language: String = ""
-}
-
-struct CodeBlockView: View {
-    let code: String
-    let language: String
-    @State private var isCopied = false
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // Header with Language and Copy Button
-            HStack {
-                Text(language.isEmpty ? "plaintext" : language)
-                    .font(.caption.monospaced())
-                    .foregroundColor(.secondary)
-                Spacer()
-                Button(action: copyToClipboard) {
-                    Label(isCopied ? "Copied!" : "Copy", systemImage: isCopied ? "checkmark" : "doc.on.doc")
-                        .font(.caption)
-                }
-                .buttonStyle(.borderless)
-            }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
-            .background(Color.gray.opacity(0.1))
-
-            // The Code Itself
-            ScrollView(.horizontal, showsIndicators: true) {
-                Text(code)
-                    .font(.system(.body, design: .monospaced))
-                    .padding(10)
-            }
-        }
-        .background(Color.black.opacity(0.05))
-        .cornerRadius(8)
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.2)))
-    }
-
-    private func copyToClipboard() {
-        let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        pasteboard.setString(code, forType: .string)
-        withAnimation { isCopied = true }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { isCopied = false }
     }
 }
