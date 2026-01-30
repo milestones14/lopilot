@@ -17,6 +17,7 @@ struct MarkdownText: View {
                 }
             }
         }
+        .textSelection(.enabled)
     }
 
     // Helper function to handle the trimming logic

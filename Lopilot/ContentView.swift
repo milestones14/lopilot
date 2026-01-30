@@ -405,20 +405,10 @@ struct ContentView: View {
             visibleSuggestions = codingSuggestions
         } else {
             // Otherwise, show generic suggestions
-            let evenShowCode = Int.random(in: 1...100) <= 70
-            
-            let codingSelection = promptSuggestionsCode.shuffled().prefix(1)
-            let genericSelection = promptSuggestions.shuffled().prefix(evenShowCode ? 2 : 3)
-            
-            if evenShowCode {
-                visibleSuggestions = (genericSelection + codingSelection)
-                    .shuffled()
-                    .sortedByVisualWidth(\.content, order: .smallToLarge)
-            } else {
-                visibleSuggestions = (genericSelection)
-                    .shuffled()
-                    .sortedByVisualWidth(\.content, order: .smallToLarge)
-            }
+            visibleSuggestions = (promptSuggestions + promptSuggestionsCode)
+                .shuffled()
+                .prefix(3)
+                .sortedByVisualWidth(\.content, order: .smallToLarge)
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
@@ -534,6 +524,22 @@ struct ContentView: View {
                 }
             }
             .padding(.top, 20)
+            
+            Button(action: {
+                showSuggestions()
+            }) {
+                HStack(spacing: 5) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 10))
+                        .foregroundColor(.accentColor)
+                    
+                    Text("Retry")
+                        .font(.system(size: 10))
+                        .foregroundColor(.accentColor)
+                }
+                .padding(2)
+            }
+            .buttonStyle(.plain)
             
             Spacer()
         }
