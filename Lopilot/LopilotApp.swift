@@ -7,7 +7,7 @@ struct LopilotApp: App {
         
         WindowGroup {
             ContentView()
-                .frame(minWidth: 1100, minHeight: 645)
+                .frame(minWidth: 645, minHeight: 645)
         }
     }
 }
