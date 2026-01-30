@@ -1,6 +1,7 @@
 import SwiftUI
 import Markdown
 import DeviceNameKit
+import UniformTypeIdentifiers
 
 struct ContentView: View {
     @State private var currentPrompt: String = ""
@@ -24,6 +25,7 @@ struct ContentView: View {
     @State private var isInstalling: [String: Bool] = [:]
     @State private var isUninstalling: [String: Bool] = [:]
     @State private var modelProgress: [String: ModelPullProgress] = [:]
+    @State private var isTargeted: Bool = false
 
     let models = GlobalVariables.models
     let modelsUser = GlobalVariables.modelsUser
@@ -299,6 +301,86 @@ struct ContentView: View {
                !chatHistory.sessions.contains(where: { $0.id == id }) {
                 chatHistory.saveSession(currentSession.wrappedValue)
             }
+        }
+        .overlay {
+            if isTargeted {
+                ZStack {
+                    Color.accentColor.opacity(0.1)
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [5]))
+                    
+                    VStack(spacing: 12) {
+                        Image(systemName: "doc.badge.plus")
+                            .font(.system(size: 40))
+                            .foregroundColor(.accentColor)
+                        Text("Drop files to attach")
+                            .font(.headline)
+                    }
+                }
+                .padding() // Match your chatView padding
+                .transition(.opacity)
+            }
+        }
+        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+            print("[DROP LOG] Drop initiated with \(providers.count) providers")
+            
+            let currentCount = attachedFiles.count
+            let remainingSlots = 10 - currentCount
+            if remainingSlots <= 0 {
+                print("[DROP LOG] Cancelled: No remaining slots (Max 10)")
+                return false
+            }
+
+            for (index, provider) in providers.prefix(remainingSlots).enumerated() {
+                print("[DROP LOG] Processing provider #\(index + 1)")
+                
+                // Using loadObject(ofClass: URL.self) is more modern and reliable for file paths
+                provider.loadObject(ofClass: URL.self) { url, error in
+                    if let error = error {
+                        print("[DROP LOG] Provider error: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let url = url else {
+                        print("[DROP LOG] Failed to extract URL from provider")
+                        return
+                    }
+                    
+                    print("[DROP LOG] File detected: \(url.lastPathComponent)")
+
+                    // 1. Security Access
+                    let canAccess = url.startAccessingSecurityScopedResource()
+                    print("[DROP LOG] Security access granted: \(canAccess)")
+                    
+                    defer {
+                        if canAccess { url.stopAccessingSecurityScopedResource() }
+                    }
+
+                    // 2. Identify Content Type
+                    do {
+                        let resourceValues = try url.resourceValues(forKeys: [.contentTypeKey])
+                        let contentType = resourceValues.contentType
+                        print("[DROP LOG] Content Type identified as: \(contentType?.identifier ?? "unknown")")
+                        
+                        // 3. Attempt to Read
+                        // We try to read anything. If it's binary, String(contentsOf:) will throw an error
+                        if let content = try? String(contentsOf: url, encoding: .utf8) {
+                            print("[DROP LOG] Successfully read string content (\(content.count) chars)")
+                            DispatchQueue.main.async {
+                                let newFile = AttachedFile(name: url.lastPathComponent, content: content)
+                                self.attachedFiles.append(newFile)
+                                print("[DROP LOG] File appended to UI state")
+                            }
+                        } else {
+                            print("[DROP LOG] FAILED: File exists but could not be read as a UTF-8 string (likely binary or wrong encoding)")
+                        }
+                        
+                    } catch {
+                        print("[DROP LOG] ERROR reading resource values: \(error.localizedDescription)")
+                    }
+                }
+            }
+            return true
         }
         .onDisappear {
             serverProcess?.terminate()
