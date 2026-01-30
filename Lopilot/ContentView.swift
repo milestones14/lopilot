@@ -1,5 +1,6 @@
 import SwiftUI
 import Markdown
+import DeviceNameKit
 
 struct ContentView: View {
     @State private var currentPrompt: String = ""
@@ -899,6 +900,8 @@ struct ContentView: View {
     func sendPrompt() {
         Task { @MainActor in
             if !checkAvailability() { return }
+            let fetcher = DeviceNameFetcher(cachePolicy: .threeDays)
+            fetcher.preload()
             let rawPrompt = currentPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !rawPrompt.isEmpty && !isLoading else { return }
 
@@ -924,16 +927,41 @@ struct ContentView: View {
                     generateTitle(for: sessionID, basedOn: rawPrompt)
                 }
             }
+            
+            // 1. Get the list of all apps for general context
+            let userApps = NSWorkspace.shared.runningApplications.filter {
+                $0.activationPolicy == .regular && $0.localizedName != "Lopilot" && $0.localizedName != "Finder"
+            }
 
-            // 4. Build context
+            let usrAppsString = userApps
+                .compactMap { $0.localizedName }
+                .joined(separator: ", ")
+
+            // 2. Use our "Memory" for the specific focus
+            let lastActiveApp = AppTracker.shared.lastActiveApp
+
+            // 3. Build context
             let fullContext = currentSession.wrappedValue.messages.dropLast().map { msg in
-                let extras =
-                    """
-                    
-                    
-                    ---   SYSTEM DETAILS    ---
-                    Date: \(Date().formatted(date: .complete,time: .complete))
-                    """
+                let extras = """
+                --- SYSTEM CONTEXT ---
+                Current Time: \(Date().formatted(date: .complete, time: .complete))
+                Time Zone: \(TimeZone.current.identifier)
+                User Identity: \(NSFullUserName()) (Always address the user by name)
+
+                ENVIRONMENT:
+                OS: macOS \(ProcessInfo.processInfo.operatingSystemVersionString)
+                Hardware: \(fetcher.deviceModel ?? "Mac")
+                Most Recent Active App: \(lastActiveApp)
+                All Running Apps: \(usrAppsString)
+
+                INSTRUCTIONS:
+                1. Use "Most Recent Active App" (\(lastActiveApp)) as the primary context. 
+                2. If the user mentions "this app", "this window", or "here", they are referring to \(lastActiveApp).
+                3. If \(lastActiveApp) is "Unknown", rely on the "All Running Apps" list for relevance.
+                4. Tailor technical advice to macOS \(ProcessInfo.processInfo.operatingSystemVersionString).
+                """
+                
+                print(extras)
                 
                 if let attachments = msg.attachments, !attachments.isEmpty {
                     // Reconstruct the formatted prompt for history messages, and other useful details

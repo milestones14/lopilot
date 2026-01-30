@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 
 class GlobalFunctions {
     static func makePayload(with prompt: String, model: String) -> String? {
@@ -58,5 +59,57 @@ class GlobalFunctions {
         
         // Returns "Google Gemma3 (1b)" instead of "gemma3:1b"
         return variant.isEmpty ? friendlyBase : "\(friendlyBase) (\(variant))"
+    }
+    
+    static func getModelIdentifier() -> String {
+        var size = 0
+        sysctlbyname("hw.model", nil, &size, nil, 0)
+        var model = [CChar](repeating: 0, count: size)
+        sysctlbyname("hw.model", &model, &size, nil, 0)
+        return String(cString: model)
+    }
+
+    static func getMarketingName() -> String {
+        let identifier = getModelIdentifier()
+        let path = "/System/Library/PrivateFrameworks/ServerInformation.framework/Versions/A/Resources/en.lproj/SIMachineAttributes.plist"
+        
+        if let dict = NSDictionary(contentsOfFile: path),
+           let modelDict = dict[identifier] as? [String: Any],
+           let localizedDict = modelDict["_LOCALIZABLE_"] as? [String: String],
+           let name = localizedDict["marketingModel"] {
+            return name
+        }
+        return identifier // Fallback to "Mac16,10" if name not found
+    }
+    
+    static func getSystemContext() -> (lastApp: String, allApps: String) {
+        let runningApps = NSWorkspace.shared.runningApplications
+        
+        // 1. Filter for regular user-facing apps, excluding your own
+        let userApps = runningApps.filter {
+            $0.activationPolicy == .regular &&
+            $0.bundleIdentifier != Bundle.main.bundleIdentifier
+        }
+        
+        // 2. Identify the "Last Active" App
+        // We check the actual frontmost app first.
+        let frontmost = NSWorkspace.shared.frontmostApplication
+        
+        let lastActiveAppName: String
+        if let front = frontmost, front.bundleIdentifier != Bundle.main.bundleIdentifier {
+            // If the user is currently focused on another app, that's the one!
+            lastActiveAppName = front.localizedName ?? "Unknown"
+        } else {
+            // If the user is focused on YOUR app (Lopilot), we grab the first
+            // available user app as the best guess for what was open behind it.
+            lastActiveAppName = userApps.first?.localizedName ?? "Unknown"
+        }
+        
+        // 3. Create a clean comma-separated list of all open apps
+        let allAppsString = userApps
+            .compactMap { $0.localizedName }
+            .joined(separator: ", ")
+        
+        return (lastActiveAppName, allAppsString)
     }
 }

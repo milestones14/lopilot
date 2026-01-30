@@ -1,6 +1,15 @@
 {
-  "originHash" : "6cd735889f74f7bdfaeb767144364160e04db981e53c431b819f5e9ada31d734",
+  "originHash" : "78d41901a71a6ad66b22394555278124eca8bea62ac32fbbf628dd16aa22c2ef",
   "pins" : [
+    {
+      "identity" : "devicenamekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kimdaehee0824/DeviceNameKit.git",
+      "state" : {
+        "revision" : "ecfcf4cb58f3c4ae8a34d941376ae64ac2093066",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "swift-cmark",
       "kind" : "remoteSourceControl",

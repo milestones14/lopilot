@@ -15,6 +15,8 @@
 		89A81CE42F2BB4EA00B2C04F /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE32F2BB4EA00B2C04F /* UserPreferences.swift */; };
 		89A81CE62F2BB72200B2C04F /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE52F2BB71200B2C04F /* GlobalVariables.swift */; };
 		89A81CE82F2BB99000B2C04F /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A81CE72F2BB98C00B2C04F /* GlobalFunctions.swift */; };
+		89AC73522F2CDB190017C786 /* DeviceNameKit in Frameworks */ = {isa = PBXBuildFile; productRef = 89AC73512F2CDB190017C786 /* DeviceNameKit */; };
+		89AC73542F2CE5040017C786 /* AppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC73532F2CE5040017C786 /* AppTracker.swift */; };
 		CCD803392DAD676600EFF3FD /* LopilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD803382DAD676600EFF3FD /* LopilotApp.swift */; };
 		CCD8033B2DAD676600EFF3FD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD8033A2DAD676600EFF3FD /* ContentView.swift */; };
 		CCD8033D2DAD676B00EFF3FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD8033C2DAD676B00EFF3FD /* Assets.xcassets */; };
@@ -51,6 +53,7 @@
 		89A81CE32F2BB4EA00B2C04F /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		89A81CE52F2BB71200B2C04F /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		89A81CE72F2BB98C00B2C04F /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		89AC73532F2CE5040017C786 /* AppTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTracker.swift; sourceTree = "<group>"; };
 		CCD803352DAD676600EFF3FD /* Lopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD803382DAD676600EFF3FD /* LopilotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LopilotApp.swift; sourceTree = "<group>"; };
 		CCD8033A2DAD676600EFF3FD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89AC73522F2CDB190017C786 /* DeviceNameKit in Frameworks */,
 				89097A9A2E8C427E00BB481E /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +106,7 @@
 		89A81CEA2F2BBB6200B2C04F /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				89AC73532F2CE5040017C786 /* AppTracker.swift */,
 				89A81CE32F2BB4EA00B2C04F /* UserPreferences.swift */,
 				89A81CDF2F2BB45700B2C04F /* Misc.swift */,
 			);
@@ -271,6 +276,7 @@
 			mainGroup = CCD8032C2DAD676600EFF3FD;
 			packageReferences = (
 				89097A982E8C427E00BB481E /* XCRemoteSwiftPackageReference "swift-markdown" */,
+				89AC73502F2CDB190017C786 /* XCRemoteSwiftPackageReference "DeviceNameKit" */,
 			);
 			productRefGroup = CCD803362DAD676600EFF3FD /* Products */;
 			projectDirPath = "";
@@ -342,6 +348,7 @@
 				89A81CE02F2BB45A00B2C04F /* Misc.swift in Sources */,
 				CCD803392DAD676600EFF3FD /* LopilotApp.swift in Sources */,
 				89A81CDC2F2BB40900B2C04F /* CodeBlockView.swift in Sources */,
+				89AC73542F2CE5040017C786 /* AppTracker.swift in Sources */,
 				89A81CE82F2BB99000B2C04F /* GlobalFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +682,14 @@
 				minimumVersion = 0.7.1;
 			};
 		};
+		89AC73502F2CDB190017C786 /* XCRemoteSwiftPackageReference "DeviceNameKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kimdaehee0824/DeviceNameKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -682,6 +697,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 89097A982E8C427E00BB481E /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
+		};
+		89AC73512F2CDB190017C786 /* DeviceNameKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89AC73502F2CDB190017C786 /* XCRemoteSwiftPackageReference "DeviceNameKit" */;
+			productName = DeviceNameKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
