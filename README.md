@@ -5,11 +5,12 @@
 
 ## Key Features
 
-* **🔒 100% Local & Private:** All processing happens on your machine via a local server. No data is sent to the cloud.
-* **♾️ Fully Limitless & Free:** Since all processing happens on your machine locally, usage limits don't apply, so you can avoid paying subscriptions like Meta AI+ or Mistral Le Chat Pro!
-* **📦 Built-in Model Manager:** Install, monitor download progress, and uninstall models directly from the UI.
-* **📂 File Context:** Drag and drop or import up to 10 files per message (Swift, Python, txt, etc.) to give the AI context for your questions.
-* **🕓 Chat History:** Auto-saves your sessions locally so you can revisit previous conversations.
+* **♾️ Fully Limitless & Free:** Since the heavy lifting happens locally, you can skip the monthly subscriptions and usage caps found in services like Meta AI+ or Mistral Le Chat Pro.
+* **🧠 Global Community-Powered Learning:** Experience an assistant that actually evolves with you; when you correct the AI, it integrates those insights to sharpen its logic and accuracy for the entire community. To ensure your security, only anonymous, non-personal instructions are used for this global improvement.
+* **📦 Built-in Model Manager:** Easily browse, install, and manage your local model library directly through the app interface.
+* **📂 File Context:** Drag and drop or import up to 10 files per message (Swift, Python, txt, etc.) to give the AI the specific context it needs.
+* **🕓 Chat History:** Your sessions are auto-saved to your local storage, allowing you to pick up exactly where you left off.
+* **🔒 Local & Private Processing:** All core message processing happens 100% on your machine. Your private conversations and files never leave your device.
 
 ## Supported Models
 
