@@ -1,55 +1,54 @@
-# Lopilot
+# Lopilot: Local LLM GUI for Mac (Ollama Client)
 <img width="1200" height="809" alt="Screenshot 2026-01-31 at 6 45 39 PM" src="https://github.com/user-attachments/assets/4c1857c8-6920-4d4a-a46c-e7fcfe900824" />
 
-**Lopilot** is a native macOS application built with SwiftUI that serves as a powerful, local client for Large Language Models (LLMs). Powered by **Ollama**, Lopilot allows you to chat with state-of-the-art AI models entirely offline, ensuring your data remains private and secure.
+**Lopilot** is an open-source, native macOS **Ollama GUI** built with SwiftUI. It serves as a powerful **Local LLM Client**, allowing you to run Large Language Models like **Llama 3.1**, **DeepSeek R1**, and **Gemma 3** entirely offline for maximum privacy.
 
-## Key Features
+> **Note:** This is a native alternative to web-based interfaces, optimized specifically for **Apple Silicon (M1/M2/M3/M4)** performance.
 
-* **♾️ Fully Limitless & Free:** Since the heavy lifting happens locally, you can skip the monthly subscriptions and usage caps found in services like Meta AI+ or Mistral Le Chat Pro.
-* **🧠 Global Community-Powered Learning:** Experience an assistant that actually evolves with you; when you correct the AI, it integrates those insights to sharpen its logic and accuracy for the entire community. To ensure your security, only anonymous, non-personal instructions are used for this global improvement.
-* **📦 Built-in Model Manager:** Easily browse, install, and manage your local model library directly through the app interface.
-* **📂 File Context:** Drag and drop or import up to 10 files per message (Swift, Python, txt, etc.) to give the AI the specific context it needs.
-* **🕓 Chat History:** Your sessions are auto-saved to your local storage, allowing you to pick up exactly where you left off.
-* **🔒 Local & Private Processing:** All core message processing happens 100% on your machine. Your private conversations and files never leave your device.
+---
 
-## Supported Models
+## 🚀 Key Features
 
-Lopilot currently supports these models (via Ollama):
+* **🌐 Native Ollama GUI:** A lightweight, high-performance interface for managing and chatting with local AI models.
+* **🧠 Community-Driven Logic:** Optional, anonymous logic sharing to improve model accuracy across the Lopilot ecosystem.
+* **📦 Integrated Model Manager:** One-click install/uninstall for **DeepSeek R1**, **Llama 3.1**, and **Mistral**.
+* **📂 Local RAG / File Context:** Attach up to 10 source code files (Swift, Python, JS) per message for context-aware coding assistance.
+* **🕓 Persistent Chat History:** Local storage of all AI sessions for seamless workflow continuity.
 
-* **Meta Llama 3.1** (8b to 405b)
-* **DeepSeek R1** (1.5b to 671b)
-* **Google Gemma 3** (1b to 27b)
-* **Mistral** (7b)
-* **Meta Code Llama** (7b to 70b)
+## 🤖 Supported Models
 
-## Prerequisites
+Lopilot connects via **Ollama** to run the industry's best open-weight models:
 
-To run Lopilot, you must have the following installed on your Mac:
+* **Meta Llama 3.1** (8b to 405b) — *General purpose*
+* **DeepSeek R1** (1.5b to 671b) — *High-reasoning model*
+* **Google Gemma 3** (1b to 27b) — *Fast & efficient*
+* **Mistral & CodeLlama** — *Optimized for developers*
 
-1. **macOS 14.0+** (Sonoma or later).
-2. **Ollama**: This app acts as a GUI client for Ollama. Download from [ollama.com](https://ollama.com).
+---
 
-## Usage Guide
+## 🛠 Prerequisites & Installation
 
-### Managing Models
+To use this **Local LLM Mac application**, you need:
 
-Navigate to the "Models" tab. Here you can see which models are installed.
+1. **macOS 14.0+**
+2. **Ollama**: Download the backend engine at [ollama.com](https://ollama.com).
 
-* **To Install:** Click the `Install` button next to the model size you want.
-* **To Uninstall:** Click `Uninstall` to free up disk space.
+### Quick Start
 
-### Using Attachments
+1. Ensure Ollama is running in your menu bar.
+2. Launch Lopilot.
+3. Download a model in the **Models** tab (e.g., `llama3.1`).
+4. Start chatting!
 
-You can analyze code or text files by clicking the **(+)** button near the text input.
+---
 
-* **Supported formats:** Text files, Source Code (Swift, Python, JS, etc.).
-* **Limit:** Up to 10 files per message.
+## 💻 Technical Architecture
 
-## Technical Details
+* **Framework:** SwiftUI (Native Mac Performance).
+* **Local API:** Connects to `localhost:11434` (Ollama standard port).
+* **Storage:** Local persistence via `UserDefaults` and security-scoped file bookmarks.
 
-* **Persistence:** Chat history and user preferences are stored locally using `UserDefaults`.
-* **Sandbox Security:** The app uses security-scoped resources to read user-selected files safely.
-* **Networking:** Communicates with the local Ollama instance via `http://localhost:11434/api/generate`.
+---
 
 ## Star History
 
