@@ -26,6 +26,8 @@ struct ContentView: View {
     @State private var isUninstalling: [String: Bool] = [:]
     @State private var modelProgress: [String: ModelPullProgress] = [:]
     @State private var isTargeted: Bool = false
+    @State private var editingSessionID: UUID? = nil
+    @State private var editingText: String = ""
 
     let models = GlobalVariables.models
     let modelsUser = GlobalVariables.modelsUser
@@ -246,20 +248,79 @@ struct ContentView: View {
                 ForEach(chatHistory.sessions) { session in
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(session.name)
-                                .font(.headline)
-                            Text(session.timestamp, style: .date)
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                        Spacer()
-                        Button(action: {
-                            if session.id != currentSessionID {
-                                chatHistory.deleteSession(session.id)
+                            if editingSessionID == session.id {
+                                // The Editable TextField
+                                TextField("Session Name", text: $editingText, onCommit: {
+                                    saveNewName(for: session)
+                                })
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .onSubmit { saveNewName(for: session) }
                             } else {
-                                currentSessionID = nil
-                                chatHistory.deleteSession(session.id)
-                                createNewChat()
+                                // The Standard View
+                                Text(session.name)
+                                    .font(.headline)
+                                Text(session.timestamp, style: .date)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        
+                        Spacer()
+
+                        // Edit Button Logic
+                        Button(action: {
+                            if editingSessionID == session.id {
+                                saveNewName(for: session)
+                            } else {
+                                editingText = session.name
+                                editingSessionID = session.id
+                            }
+                        }) {
+                            Image(systemName: editingSessionID == session.id ? "checkmark.circle" : "square.and.pencil")
+                                .foregroundColor(editingSessionID == session.id ? .green : .primary)
+                        }
+                        .buttonStyle(.borderless)
+                        
+                        Button(action: {
+                            let alert = NSAlert()
+                            alert.messageText = "Delete '\(session.name)'?"
+                            alert.informativeText = "This action cannot be undone."
+                            alert.alertStyle = .warning
+                            
+                            // The first button added becomes the default (Return key)
+                            alert.addButton(withTitle: "Delete")
+                            // The second button becomes the cancel button (Escape key)
+                            alert.addButton(withTitle: "Cancel")
+                            
+                            // Set the first button to a destructive appearance (macOS 11+)
+                            if #available(macOS 11.0, *) {
+                                alert.buttons[0].hasDestructiveAction = true
+                            }
+
+                            // Show the alert as a sheet attached to the window
+                            if let window = NSApp.keyWindow {
+                                alert.beginSheetModal(for: window) { response in
+                                    if response == .alertFirstButtonReturn {
+                                        if session.id != currentSessionID {
+                                            chatHistory.deleteSession(session.id)
+                                        } else {
+                                            currentSessionID = nil
+                                            chatHistory.deleteSession(session.id)
+                                            createNewChat()
+                                        }
+                                    }
+                                }
+                            } else {
+                                // Fallback if no window is active
+                                if alert.runModal() == .alertFirstButtonReturn {
+                                    if session.id != currentSessionID {
+                                        chatHistory.deleteSession(session.id)
+                                    } else {
+                                        currentSessionID = nil
+                                        chatHistory.deleteSession(session.id)
+                                        createNewChat()
+                                    }
+                                }
                             }
                         }) {
                             Image(systemName: "trash")
@@ -269,8 +330,11 @@ struct ContentView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        currentSessionID = session.id
-                        selectedItem = "chat"
+                        // Only switch chats if we aren't currently editing a title
+                        if editingSessionID == nil {
+                            currentSessionID = session.id
+                            selectedItem = "chat"
+                        }
                     }
                 }
             }
@@ -278,7 +342,20 @@ struct ContentView: View {
         }
         .padding()
     }
-
+    private func saveNewName(for session: ChatSession) {
+        guard !editingText.trimmingCharacters(in: .whitespaces).isEmpty else {
+            editingSessionID = nil
+            return
+        }
+        
+        if let index = chatHistory.sessions.firstIndex(where: { $0.id == session.id }) {
+            chatHistory.sessions[index].name = editingText
+            chatHistory.saveSession(chatHistory.sessions[index])
+        }
+        
+        editingSessionID = nil
+        editingText = ""
+    }
     // MARK: - Main Chat View
     var chatView: some View {
         VStack(alignment: .leading) {
@@ -1034,7 +1111,7 @@ struct ContentView: View {
                 --- SYSTEM CONTEXT ---
                 Current Time: \(Date().formatted(date: .complete, time: .complete))
                 Time Zone: \(TimeZone.current.identifier)
-                User Identity: \(NSFullUserName()) (Always address the user by name)
+                User Identity: \(NSFullUserName()) (Always address the user by name, and fill any placeholders in generated text with this, including braces()[])
 
                 ENVIRONMENT:
                 OS: macOS \(ProcessInfo.processInfo.operatingSystemVersionString)
@@ -1047,6 +1124,7 @@ struct ContentView: View {
                 2. If the user mentions "this app", "this window", or "here", they are referring to \(lastActiveApp).
                 3. If \(lastActiveApp) is "Unknown", rely on the "All Running Apps" list for relevance.
                 4. Tailor technical advice to macOS \(ProcessInfo.processInfo.operatingSystemVersionString).
+                5. It's great to greet \(NSFullUserName()) at the very start of the conversation, but you shouldn't keep greeting \(NSFullUserName()) in subsequent messages.
                 """
                 
                 print(extras)
