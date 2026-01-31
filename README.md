@@ -1,6 +1,5 @@
 # Lopilot
-<img width="1414" height="934" alt="Screenshot 2026-01-29 at 12 39 04 PM" src="https://github.com/user-attachments/assets/14b1735b-9dff-4e88-bbf7-8497e4222045" />
-
+<img width="1200" height="809" alt="Screenshot 2026-01-31 at 6 45 39 PM" src="https://github.com/user-attachments/assets/4c1857c8-6920-4d4a-a46c-e7fcfe900824" />
 
 **Lopilot** is a native macOS application built with SwiftUI that serves as a powerful, local client for Large Language Models (LLMs). Powered by **Ollama**, Lopilot allows you to chat with state-of-the-art AI models entirely offline, ensuring your data remains private and secure.
 
