@@ -28,6 +28,8 @@ struct ContentView: View {
     @State private var isTargeted: Bool = false
     @State private var editingSessionID: UUID? = nil
     @State private var editingText: String = ""
+    @State private var correctionWasLearned: Bool = false
+    @State private var messagesLoaderId: UUID = UUID()
 
     let models = GlobalVariables.models
     let modelsUser = GlobalVariables.modelsUser
@@ -542,8 +544,10 @@ struct ContentView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(currentSession.wrappedValue.messages) { message in
-                        ChatBubble(message: message).id(message.id)
+                        ChatBubble(message: message)
+                            .id("\(message.id)-\(message.learned)")
                     }
+                    .id(messagesLoaderId)
                     
                     if isLoading || !streamingResponse.isEmpty {
                         ChatBubble(message: Message(
@@ -789,18 +793,55 @@ struct ContentView: View {
     }
     
     private func createNewChat() {
+        // 1. Define the initial state
+        let initialSystemText = """
+        SYSTEM INSTRUCTIONS
+        You are a helpful assistant that mkes sure to stand by all the learned data
+        
+        LEARNT DATA
+        (Loading data...)
+        """
+        
         let newSession = ChatSession(
             name: "New Chat \(chatHistory.sessions.count + 1)",
             messages: [
-                Message(role: .system, text: "SYSTEM INSTRUCTIONS: You are a friendly, helpful assistant that doesn't use any emojis if the conversation is regarding code.", modelUserFriendly: "NONE", isLoading: false)
+                Message(role: .system, text: initialSystemText, modelUserFriendly: "NONE", isLoading: false)
             ]
         )
+        
+        // 2. Immediate UI Update
         chatHistory.saveSession(newSession)
-        currentSessionID = newSession.id // Update the session ID to select the new session
+        currentSessionID = newSession.id
         selectedItem = "chat"
+        
+        // 3. Background update for Learned Data
+        Task {
+            let knowledge = await GlobalFunctions.fetchCommunityKnowledge()
+            
+            let updatedSystemText = """
+            SYSTEM INSTRUCTIONS
+            You are a helpful assistant that mkes sure to stand by all the learned data
+            
+            LEARNT DATA
+            These are all the things you have learned. Make sure to follow these lines.
+            \(knowledge)
+            """
+            
+            print("Knowledge: \(knowledge)")
+            
+            // 4. Update logic using indices to ensure the correct session in history is modified
+            if let sessionIndex = chatHistory.sessions.firstIndex(where: { $0.id == newSession.id }),
+               let msgIndex = chatHistory.sessions[sessionIndex].messages.firstIndex(where: { $0.role == .system }) {
+                
+                // Reach directly into the published history to trigger a UI refresh
+                chatHistory.sessions[sessionIndex].messages[msgIndex].text = updatedSystemText
+                
+                // Persist the change to UserDefaults
+                chatHistory.saveSession(chatHistory.sessions[sessionIndex])
+            }
+        }
     }
-
-
+    
     private func checkAvailability() -> Bool {
         var isAvailable = true
         if !GlobalFunctions.isOllamaAvailable() {
@@ -1069,7 +1110,38 @@ struct ContentView: View {
             fetcher.preload()
             let rawPrompt = currentPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !rawPrompt.isEmpty && !isLoading else { return }
-
+            
+            let modelToUse = selectedModel.isEmpty ? "gemma3:1b" : selectedModel
+            Task {
+                let result = await GlobalFunctions.detectCorrection(userPrompt: rawPrompt, model: modelToUse)
+                
+                if !result.uppercased().contains("NOCORRECTION") && !result.uppercased().contains("TASK/CHAT") {
+                    let success = await GlobalFunctions.submitLearningEntry(instruction: result)
+                    
+                    if success {
+                        await MainActor.run {
+                            // Check the ROLE of the VERY LAST message in the chat
+                            if let lastMsg = currentSession.wrappedValue.messages.last, lastMsg.role == .assistant {
+                                // Case A: AI finished before Judge. Update the existing message.
+                                if let lastIndex = currentSession.wrappedValue.messages.indices.last {
+                                    currentSession.wrappedValue.messages[lastIndex].learned = true
+                                    chatHistory.objectWillChange.send() // Force UI Refresh
+                                    chatHistory.saveSession(currentSession.wrappedValue)
+                                    self.correctionWasLearned = true
+                                    self.messagesLoaderId = UUID()
+                                    print("Badge applied to existing Assistant message.")
+                                }
+                            } else {
+                                // Case B: Last message is User (AI is still thinking/streaming).
+                                // Set the flag so 'finalizeLoading' picks it up when creating the message.
+                                self.correctionWasLearned = true
+                                print("Judge finished early. Flag set for upcoming message.")
+                            }
+                        }
+                    }
+                }
+            }
+            
             // 1. Capture current attachments for the UI and History
             let messageAttachments = attachedFiles.isEmpty ? nil : attachedFiles
             
@@ -1127,8 +1199,6 @@ struct ContentView: View {
                 5. It's great to greet \(NSFullUserName()) at the very start of the conversation, but you shouldn't keep greeting \(NSFullUserName()) in subsequent messages.
                 """
                 
-                print(extras)
-                
                 if let attachments = msg.attachments, !attachments.isEmpty {
                     // Reconstruct the formatted prompt for history messages, and other useful details
                     var formatted = msg.text + "\n\n--- USER ATTACHED FILES ---"
@@ -1184,9 +1254,18 @@ struct ContentView: View {
         isLoading = false
         
         if !finalResult.isEmpty {
-            // Resolve the friendly name before creating the message
             let friendlyName = GlobalFunctions.displayName(for: model)
-            let assistantMsg = Message(role: .assistant, text: finalResult, modelUserFriendly: friendlyName, isLoading: false)
+
+            let assistantMsg = Message(
+                role: .assistant,
+                text: finalResult,
+                modelUserFriendly: friendlyName,
+                isLoading: false,
+                learned: self.correctionWasLearned
+            )
+            
+            self.correctionWasLearned = false
+            
             currentSession.wrappedValue.messages.append(assistantMsg)
         }
         

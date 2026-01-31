@@ -59,6 +59,21 @@ struct ChatBubble: View {
                 }
                 
                 if message.role == .assistant {
+                    if message.learned {
+                        HStack(spacing: 4) {
+                            Image(systemName: "graduationcap")
+                                .font(.system(size: 12))
+                            
+                            Text("Knowledge updated")
+                                .font(.caption2)
+                                .lineLimit(1)
+                        }
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.secondary.opacity(0.1))
+                        .cornerRadius(4)
+                    }
+                    
                     HStack {
                         Text("_AI Responses may contain mistakes. Check important info._")
                             .padding(5)
@@ -93,17 +108,27 @@ struct Message: Identifiable, Codable, Equatable {
     }
     let id: UUID
     let role: Role
-    let text: String
+    var text: String
     let modelUserFriendly: String
     var isLoading: Bool = false
+    var learned: Bool = false
     var attachments: [AttachedFile]? = nil // New property for attachments
 
-    init(id: UUID = UUID(), role: Role, text: String, modelUserFriendly: String, isLoading: Bool, attachments: [AttachedFile]? = nil) {
+    init(
+        id: UUID = UUID(),
+        role: Role,
+        text: String,
+        modelUserFriendly: String,
+        isLoading: Bool,
+        learned: Bool = false,
+        attachments: [AttachedFile]? = nil
+    ) {
         self.id = id
         self.role = role
         self.text = text
         self.modelUserFriendly = modelUserFriendly
         self.isLoading = isLoading
+        self.learned = learned
         self.attachments = attachments
     }
 
